@@ -112,7 +112,7 @@ struct X402Authorization {
     nonce: String,
 }
 
-const MOSS_API_HOST: &str = "https://moss-dev.moss.site";
+const MOSS_API_HOST: &str = "https://ai.moss.site";
 
 pub struct Client {
     auth_token: String,
