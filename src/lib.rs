@@ -7,7 +7,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! moss-bounty-x402-client = "0.1.4"
+//! moss-bounty-x402-client = "0.1.5"
 //! ```
 //!
 //! ## Basic Usage
@@ -142,10 +142,7 @@ impl Client {
             .await?;
 
         if rsp.status() != 402 {
-            return Err(anyhow::anyhow!(
-                "Error creating bounty task: {}",
-                rsp.status()
-            ));
+            return Err(anyhow::anyhow!("Except api status: {}", rsp.status()));
         }
 
         let rsp = rsp.json::<CreateBounty402Resp>().await?;
@@ -163,7 +160,7 @@ impl Client {
             .await?;
 
         if !rsp.status().is_success() {
-            return Err(anyhow::anyhow!("Failed request {}", rsp.status()));
+            return Err(anyhow::anyhow!("Except api status: {}", rsp.status()));
         }
 
         Ok(())
@@ -175,15 +172,16 @@ impl Client {
         }
 
         if rsp.accepts.len() < 1 {
-            return Err(anyhow::anyhow!("No payment method found"));
+            return Err(anyhow::anyhow!("Empty x402 accepts"));
         }
 
         let accept = &rsp.accepts[0];
 
         if accept.schema != "exact" || accept.network != "base" {
             return Err(anyhow::anyhow!(
-                "Error creating bounty task: {}",
-                accept.schema
+                "Unsupported accept schema or network: {}, {}",
+                accept.schema,
+                accept.network
             ));
         }
 
@@ -228,8 +226,7 @@ impl Client {
 }
 
 fn generate_nonce() -> B256 {
-    let mut rng = rand::thread_rng();
     let mut nonce_bytes = [0u8; 32];
-    rng.fill(&mut nonce_bytes);
+    rand::thread_rng().fill(&mut nonce_bytes);
     B256::from_slice(&nonce_bytes)
 }

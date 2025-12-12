@@ -2927,7 +2927,7 @@ dependencies = [
 
 [[package]]
 name = "moss-bounty-x402-client"
-version = "0.1.4"
+version = "0.1.5"
 dependencies = [
  "alloy",
  "anyhow",

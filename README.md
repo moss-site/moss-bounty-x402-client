@@ -7,7 +7,7 @@
 
 ```toml
 [dependencies]
-moss-bounty-x402-client = "0.1.4"
+moss-bounty-x402-client = "0.1.5"
 ```
 
 ## Basic Usage
