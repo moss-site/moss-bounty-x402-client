@@ -7,13 +7,13 @@
 
 ```toml
 [dependencies]
-moss-bounty-x402-client = "0.1.3"
+moss-bounty-x402-client = "0.1.4"
 ```
 
 ## Basic Usage
 
 ```rust
-use moss-bounty-x402-client::{Client, CreateBountyTaskData};
+use moss_bounty_x402_client::{Client, CreateBountyTaskData};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
