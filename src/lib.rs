@@ -7,7 +7,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! moss-bounty-x402-client = "0.1.0"
+//! moss-bounty-x402-client = "0.1.2"
 //! ```
 //!
 //! ## Basic Usage
