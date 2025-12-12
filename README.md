@@ -7,7 +7,7 @@
 
 ```toml
 [dependencies]
-moss-bounty-x402-client = "0.1.2"
+moss-bounty-x402-client = "0.1.3"
 ```
 
 ## Basic Usage
@@ -17,14 +17,14 @@ use moss-bounty-x402-client::{Client, CreateBountyTaskData};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    // User moss authorization token, fetch by login
+    // User moss authorization token, could be fetched by login
     let auth_token = "<Your-Moss-Authorization-Token>";
-    
+
     // User wallet private key for bounty payment
     let private = "<Your-Wallet-Private-Key>";
     
     // Build a client
-    let client = Client::new(&auth_token, &private)?;
+    let client = Client::new(auth_token, private)?;
     
     // Build task data
     let task = CreateBountyTaskData {
@@ -32,11 +32,11 @@ async fn main() -> anyhow::Result<()> {
         question: "Hello?".to_string(),
         amount_usdc: "1000000".to_string(),
         valid_hours: 12,
-    }
-    
+    };
+
     // Create bounty task
-    client.create_bounty_task(task)?
-    
+    client.create_bounty_task(task).await?;
+
     Ok(())
 }
 ```

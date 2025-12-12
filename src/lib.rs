@@ -7,7 +7,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! moss-bounty-x402-client = "0.1.2"
+//! moss-bounty-x402-client = "0.1.3"
 //! ```
 //!
 //! ## Basic Usage
@@ -17,14 +17,14 @@
 //!
 //! #[tokio::main]
 //! async fn main() -> anyhow::Result<()> {
-//!     // User moss authorization token, fetch by login
+//!     // User moss authorization token, could be fetched by login
 //!     let auth_token = "<Your-Moss-Authorization-Token>";
 //!
 //!     // User wallet private key for bounty payment
 //!     let private = "<Your-Wallet-Private-Key>";
 //!
 //!     // Build a client
-//!     let client = Client::new(&auth_token, &private)?;
+//!     let client = Client::new(auth_token, private)?;
 //!
 //!     // Build task data
 //!     let task = CreateBountyTaskData {
@@ -32,10 +32,10 @@
 //!         question: "Hello?".to_string(),
 //!         amount_usdc: "1000000".to_string(),
 //!         valid_hours: 12,
-//!     }
+//!     };
 //!
 //!     // Create bounty task
-//!     client.create_bounty_task(task)?
+//!     client.create_bounty_task(task).await?
 //!
 //!     Ok(())
 //! }
@@ -232,4 +232,27 @@ fn generate_nonce() -> B256 {
     let mut nonce_bytes = [0u8; 32];
     rng.fill(&mut nonce_bytes);
     B256::from_slice(&nonce_bytes)
+}
+
+async fn t() -> Result<()> {
+    // User moss authorization token, fetch by login
+    let auth_token = "<Your-Moss-Authorization-Token>";
+
+    // User wallet private key for bounty payment
+    let private = "<Your-Wallet-Private-Key>";
+
+    // Build a client
+    let client = Client::new(auth_token, private)?;
+    // Build task data
+    let task = CreateBountyTaskData {
+        target_twitter_handle: "<target_twitter_handle>".to_string(),
+        question: "Hello?".to_string(),
+        amount_usdc: "1000000".to_string(),
+        valid_hours: 12,
+    };
+
+    // Create bounty task
+    client.create_bounty_task(task).await?;
+
+    Ok(())
 }
