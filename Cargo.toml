@@ -1,0 +1,21 @@
+[package]
+name = "moss-bounty-x402-client"
+version = "0.1.0"
+edition = "2024"
+authors = ["Steve Zhang <stevzhang01@gmail.com>"]
+license = "MIT"
+description = "Moss Bounty X402 Client."
+repository = "https://github.com/moss-site/moss-bounty-x402-client"
+keywords = ["moss", "x402", "payment", "web3"]
+readme = "./README.md"
+documentation = "https://docs.rs/moss-bounty-x402-client"
+
+[dependencies]
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.142"
+anyhow = "1.0.98"
+reqwest = { version = "0.12", features = ["json"] }
+alloy = { version = "1.1.2", features = ["eip712"] }
+rand = { version = "0.8.5" }
+chrono = { version = "0.4.42" }
+base64 = "0.22.1"
